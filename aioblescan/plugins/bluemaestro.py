@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-#
+#!/usr/bin/python3
+
 # This file deals with the Blue Maestro formatted message
 from struct import unpack
 import aioblescan as aios

@@ -1,33 +1,58 @@
-aioblescan
-==========
+Bluetooth Low Energy (BLE) Scan for BrewPi Derivatives using Tilt
+=================================================================
 
-aioblescan is a Python 3/asyncio library to listen for BLE advertized
-packets.
+aioblescan is a Python 3/asyncio library to listen for BLE advertized packets.  This was `originally created by François Wautier <https://github.com/frawau/aioblescan>`__ and released under the MIT license.  A `plugin for Tilt <https://github.com/baronbrew/aioblescan>`__ was created by Noah Neibaron.  This has been further modified for `BrewPi Remix <https://www.brewpiremix.com>`__, however it should be reverse-compatible with all other implementations.
 
+
+
+ 
 Installation
-============
+------------
 
-We are on PyPi so
-
-::
-
-    pip3 install aioblescan
-
-or
+Clone the repository:
 
 ::
 
-    python3 -m pip install aioblescan
+    git clone
 
-How to use
-==========
+Move into the Git directory:
+
+::
+
+    cd aioblescan
+
+Execute the installer:
+
+::
+
+    sudo -H python3 setup.py install
+
+Test using the Tilt plugin for aioblescan:
+
+::
+
+    sudo python3 -u -m aioblescan -T
+
+You will see the regular Bluetooth beacons from any Tilt in range:
+
+::
+
+    pi@raspberrypi:~/aioblescan $ sudo python3 -u -m aioblescan -T
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": -59, "rssi": -58, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "da:d2:af:29:cd:3d"}
+
+Hit `ctrl-c` to stop the scan.
+
+Additional Information
+======================
 
 Essentially, you create a function to process the incoming information
 and you attach it to the ``BTScanRequester``. You then create a
 Bluetooth connection, you issue the scan command and wait for incoming
 packets and process them.
 
-You can use Eddystone or RuuviWeather to retrieve specific information
+You can use Eddystone, RuuviWeather or Tilt  to retrieve specific information
 
 The easiest way is to look at the ``__main__.py`` file.
 
@@ -39,39 +64,53 @@ You can run the module with
 
 Add ``-h`` for help.
 
-To see the RuuviTag weather information try:
+To see the RuuviTag weather information:
 
 ::
 
    python3 -m aioblescan -r
 
-You will get
+You get:
 
 ::
 
    Weather info {'rssi': -64, 'pressure': 100300, 'temperature': 24, 'mac address': 'fb:86:84:dd:aa:bb', 'tx_power': -7, 'humidity': 36.0}
    Weather info {'rssi': -62, 'pressure': 100300, 'temperature': 24, 'mac address': 'fb:86:84:dd:aa:bb', 'tx_power': -7, 'humidity': 36.0}
 
-To check Eddystone beacon
+To check the Eddystone beacon:
 
 ::
 
    python3 -m aioblescan -e
 
-You get
+You get:
 
 ::
 
    Google Beacon {'tx_power': -7, 'url': 'https://ruu.vi/#BEgYAMR8n', 'mac address': 'fb:86:84:dd:aa:bb', 'rssi': -52}
    Google Beacon {'tx_power': -7, 'url': 'https://ruu.vi/#BEgYAMR8n', 'mac address': 'fb:86:84:dd:aa:bb', 'rssi': -53}
 
-For a generic advertise packet scanning
+
+To check the Tilt beacon:
+
+::
+
+    python3 -m aioblescan -T
+
+You get:
+
+::
+
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "da:d2:af:29:cd:3d"}
+
+For generic advertise packet scanning:
 
 ::
 
    python3 -m aioblescan
 
-You get
+You get:
 
 ::
 
@@ -147,9 +186,9 @@ running the module.
 FAQ
 ===
 
-Why not use scapy?
+Q. Why not use scapy?
 
-Scapy is great and you can do
+A. Scapy is great and you can execute the following to get things going. But, the great thing with Scapy is that there is so many versions to choose from.... and not all have all the same functions ... and installation can be haphazard, with some version not installing at all. Also scapy includes a lot of other protocols and could be an overkill... lastly it is never too late to learn.
 
 ::
 
@@ -160,9 +199,8 @@ Scapy is great and you can do
         hdr=sa.HCI_Hdr(type=1)
         test.send(hdr / chdr / command)
 
-to get things going. But... the great thing with Scapy is that there is so many versions to choose from.... and not all have all the same functions ... and installation can be haphazard, with some version not installing at all. Also scapy includes a lot of other protocols and could be an overkill... lastly it is never too late to learn...
 
-What can you track?
+Q. What can you track?
 
-aioblescan will try to parse all the incoming advertised information. You can see the raw data when it does not know what to do. With Eddystone beacon you can see the URL, Telemetry and UID
+A. aioblescan will try to parse all the incoming advertised information. You can see the raw data when it does not know what to do. With Eddystone beacon you can see the URL, Telemetry and UID
 

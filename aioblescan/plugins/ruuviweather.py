@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-#
+#!/usr/bin/python3
+
 # This file deal with RuuviTag formated message
 #
 # Copyright (c) 2017 François Wautier

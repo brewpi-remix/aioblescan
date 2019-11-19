@@ -1,27 +1,41 @@
-# aioblescan
+# Bluetooth Low Energy (BLE) Scan for BrewPi Derivatives using Tilt
 
-aioblescan is a Python 3/asyncio library to listen for BLE advertized packets.
+aioblescan is a Python 3/asyncio library to listen for BLE advertized packets.  This was [originally created by François Wautier](https://github.com/frawau/aioblescan) and released under the MIT license.  A [plugin for Tilt](https://github.com/baronbrew/aioblescan) was created by Noah Neibaron.  This has been further modified for [BrewPi Remix](https://www.brewpiremix.com), however it should be reverse-compatible with all other implementations.
 
+## Installation
 
-# Installation
+Clone the repository:
 
-We are on PyPi so
+    git clone
 
-     pip3 install aioblescan
-or
+Move into the Git directory:
 
-     python3 -m pip install aioblescan
+    cd /aioblescan
 
+Execute the installer:
 
+    sudo -H python3 setup.py install
 
-# How to use
+Test using the Tilt plugin for aioblescan:
+
+    sudo python3 -u -m aioblescan -T
+
+You will see the regular Bluetooth beacons from any Tilt in range:
+
+    pi@brewpi:~/aioblescan $ sudo python3 -u -m aioblescan -T
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": -59, "rssi": -58, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "da:d2:af:29:cd:3d"}
+
+Hit `ctrl-c` to stop the scan.
+
+## Additional Information
 
 Essentially, you create a function to process the incoming
 information and you attach it to the `BTScanRequester`. You then create a Bluetooth
 connection, you issue the scan command and wait for incoming packets and process them.
 
-You can use Eddystone or RuuviWeather to retrieve specific information
-
+You can use Eddystone, RuuviWeather or Tilt to retrieve specific information
 
 The easiest way is to look at the `__main__.py` file.
 
@@ -40,7 +54,7 @@ You will get
     Weather info {'rssi': -64, 'pressure': 100300, 'temperature': 24, 'mac address': 'fb:86:84:dd:aa:bb', 'tx_power': -7, 'humidity': 36.0}
     Weather info {'rssi': -62, 'pressure': 100300, 'temperature': 24, 'mac address': 'fb:86:84:dd:aa:bb', 'tx_power': -7, 'humidity': 36.0}
 
-To check Eddystone beacon
+To check the Eddystone beacon
 
     python3 -m aioblescan -e
 
@@ -48,6 +62,15 @@ You get
 
     Google Beacon {'tx_power': -7, 'url': 'https://ruu.vi/#BEgYAMR8n', 'mac address': 'fb:86:84:dd:aa:bb', 'rssi': -52}
     Google Beacon {'tx_power': -7, 'url': 'https://ruu.vi/#BEgYAMR8n', 'mac address': 'fb:86:84:dd:aa:bb', 'rssi': -53}
+
+To check the Tilt beacon:
+
+    python3 -m aioblescan -T
+
+You get
+
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "da:d2:af:29:cd:3d"}
 
 For a generic advertise packet scanning
 
@@ -121,13 +144,11 @@ You get
 
 Here the first packet is from a Wynd device, the second from a Ruuvi Tag
 
-
 aioblescan can also send EddyStone advertising. Try the -a flag when running the module.
 
+## FAQ
 
-# FAQ
-
-Why not use scapy?
+Q. Why not use scapy?
 
     Scapy is great and you can do
 
@@ -144,7 +165,7 @@ Why not use scapy?
     scapy inludes a lot of other protocols and could be an overkill... lastly it
     is never too late to learn...
 
-What can you track?
+Q. What can you track?
 
     aioblescan will try to parse all the incoming advertised information. You can see
     the raw data when it does not know what to do. With Eddystone beacon you can see the

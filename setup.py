@@ -1,8 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-from distutils.core import setup
+#!/usr/bin/python3
 
-version="0.2.4"
+from setuptools import setup
+
+version="0.2.5"
 
 setup(name='aioblescan',
     packages=['aioblescan', 'aioblescan.plugins'],
@@ -11,7 +11,7 @@ setup(name='aioblescan',
     author_email='francois@wautier.eu',
     description='Scanning Bluetooth for advertised info with asyncio.',
     url='http://github.com/frawau/aioblescan',
-    download_url='https://github.com/baronbrew/aioblescan/archive/master.zip',
+    download_url='https://github.com/brewpi-remix/aioblescan',
     keywords = ['bluetooth', 'advertising', 'hci', 'ble'],
     license='MIT',
     install_requires=[],

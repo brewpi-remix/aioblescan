@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-#
+#!/usr/bin/python3
+
 # This application is simply a python only Bluetooth LE Scan command with
 # decoding of advertised packets
 #

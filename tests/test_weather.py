@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import unittest
 from aioblescan.plugins.ruuviweather import get_temp
 
