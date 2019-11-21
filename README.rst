@@ -2,9 +2,6 @@ Bluetooth Low Energy (BLE) Scan for BrewPi Derivatives using Tilt
 =================================================================
 
 aioblescan is a Python 3/asyncio library to listen for BLE advertized packets.  This was `originally created by François Wautier <https://github.com/frawau/aioblescan>`__ and released under the MIT license.  A `plugin for Tilt <https://github.com/baronbrew/aioblescan>`__ was created by Noah Neibaron.  This has been further modified for `BrewPi Remix <https://www.brewpiremix.com>`__, however it should be reverse-compatible with all other implementations.
-
-
-
  
 Installation
 ------------
@@ -43,6 +40,40 @@ You will see the regular Bluetooth beacons from any Tilt in range:
     {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "da:d2:af:29:cd:3d"}
 
 Hit `ctrl-c` to stop the scan.
+
+Interpreting the Tilt Data
+--------------------------
+
+The information from the default plugin is returned as a valid JSON:
+
+```
+{
+  "uuid": "a495bb40c5b14b44b5121370f02d74de",
+  "major": 69,
+  "minor": 1056,
+  "tx_power": 31,
+  "rssi": -49,
+  "mac": "xx:xx:xx:xx:xx:xx"
+}
+```
+
+These keys may be interpreted as:
+
+- **uuid**:  Tilt name.  The "40" in a495bb`40`c5b14b44b5121370f02d74de is an indication of the color
+    - 10: Red
+    - 20: Green
+    - 30: Black
+    - 40: Purple
+    - 50: Orange
+    - 60: Blue
+    - 70: Yellow
+    - 80: Ping
+- **major**: Temp in degrees F.
+- **minor**: Specific gravity x1000
+- **tx_power**: Weeks since battery change (0-152 when converted to unsigned 8 bit integer)
+- **rssi**: Received Signal Strength Indication (RSSI) is a measurement of the power present in the received radio signal.  A lower negative number is stronger
+- **mac**: Media Access Control (MAC) address of the device
+
 
 Additional Information
 ======================

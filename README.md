@@ -23,11 +23,43 @@ Test using the Tilt plugin for aioblescan:
 You will see the regular Bluetooth beacons from any Tilt in range:
 
     pi@brewpi:~/aioblescan $ sudo python3 -u -m aioblescan -T
-    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": -59, "rssi": -58, "mac": "da:d2:af:29:cd:3d"}
-    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "da:d2:af:29:cd:3d"}
-    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -58, "mac": "xx:xx:xx:xx:xx:xx"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "xx:xx:xx:xx:xx:xx"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "xx:xx:xx:xx:xx:xx"}
 
 Hit `ctrl-c` to stop the scan.
+
+## Interpreting the Tilt Data
+
+The information from the default plugin is returned as a valid JSON:
+
+```
+{
+  "uuid": "a495bb40c5b14b44b5121370f02d74de",
+  "major": 69,
+  "minor": 1056,
+  "tx_power": 31,
+  "rssi": -49,
+  "mac": "xx:xx:xx:xx:xx:xx"
+}
+```
+
+These keys may be interpreted as:
+
+- **uuid**:  Tilt name.  The "40" in a495bb`40`c5b14b44b5121370f02d74de is an indication of the color
+    - 10: Red
+    - 20: Green
+    - 30: Black
+    - 40: Purple
+    - 50: Orange
+    - 60: Blue
+    - 70: Yellow
+    - 80: Ping
+- **major**: Temp in degrees F.
+- **minor**: Specific gravity x1000
+- **tx_power**: Weeks since battery change (0-152 when converted to unsigned 8 bit integer)
+- **rssi**: Received Signal Strength Indication (RSSI) is a measurement of the power present in the received radio signal.  A lower negative number is stronger
+- **mac**: Media Access Control (MAC) address of the device
 
 ## Additional Information
 
@@ -69,8 +101,8 @@ To check the Tilt beacon:
 
 You get
 
-    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "da:d2:af:29:cd:3d"}
-    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "da:d2:af:29:cd:3d"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -74, "mac": "xx:xx:xx:xx:xx:xx"}
+    {"uuid": "a495bb40c5b14b44b5121370f02d74de", "major": 70, "minor": 1054, "tx_power": 31, "rssi": -57, "mac": "xx:xx:xx:xx:xx:xx"}
 
 For a generic advertise packet scanning
 
@@ -145,28 +177,3 @@ You get
 Here the first packet is from a Wynd device, the second from a Ruuvi Tag
 
 aioblescan can also send EddyStone advertising. Try the -a flag when running the module.
-
-## FAQ
-
-Q. Why not use scapy?
-
-    Scapy is great and you can do
-
-        import scapy.all as sa
-        test=sa.BluetoothHCISocket(0)
-        command=sa.HCI_Cmd_LE_Set_Scan_Enable(enable=1,filter_dups=0)
-        chdr=sa.HCI_Command_Hdr(len=len(command))
-        hdr=sa.HCI_Hdr(type=1)
-        test.send(hdr / chdr / command)
-
-    to get things going. But... the great thing with Scapy is that there is so
-    many versions to choose from.... and not all have all the same functions ... and
-    installation can be haphazard, with some version not installing at all. Also
-    scapy inludes a lot of other protocols and could be an overkill... lastly it
-    is never too late to learn...
-
-Q. What can you track?
-
-    aioblescan will try to parse all the incoming advertised information. You can see
-    the raw data when it does not know what to do. With Eddystone beacon you can see the
-    URL, Telemetry and UID
