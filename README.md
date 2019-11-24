@@ -10,7 +10,7 @@ Clone the repository:
 
 Move into the Git directory:
 
-    cd /aioblescan
+    cd aioblescan
 
 Execute the installer:
 
@@ -174,6 +174,4 @@ You get
                 rssi:
                     -59
 
-Here the first packet is from a Wynd device, the second from a Ruuvi Tag
-
-aioblescan can also send EddyStone advertising. Try the -a flag when running the module.
+Here the first packet is from a Wynd device, the second from a Ruuvi Tag.
