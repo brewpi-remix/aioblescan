@@ -6,7 +6,7 @@ aioblescan is a Python 3/asyncio library to listen for BLE advertized packets.  
 
 Clone the repository:
 
-    git clone
+    git clone https://github.com/brewpi-remix/aioblescan.git
 
 Move into the Git directory:
 
