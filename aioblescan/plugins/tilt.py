@@ -10,7 +10,6 @@ import aioblescan as aios
 
 TILT = '4c000215a495'
 
-
 class Tilt(object):
     """
     Class defining the content of a Tilt advertisement
