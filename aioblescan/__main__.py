@@ -48,7 +48,7 @@ parser.add_argument("-r","--ruuvi", action = 'store_true', default = False,
                     help = "Look only for Ruuvi tag Weather station messages")
 parser.add_argument("-p","--pebble", action = 'store_true', default = False,
                     help = "Look only for Pebble Environment Monitor")
-parser.add_argument("-T","--tilt", action = 'store_true', default = alse,
+parser.add_argument("-T","--tilt", action = 'store_true', default = False,
                     help = "Look only for Tilt.")
 parser.add_argument("-R","--raw", action = 'store_true', default = False,
                     help = "Also show the raw data.")
