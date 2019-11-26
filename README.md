@@ -46,7 +46,7 @@ The information from the default plugin is returned as a valid JSON:
 
 These keys may be interpreted as:
 
-- **uuid**:  Tilt name.  The "40" in a495bb`40`c5b14b44b5121370f02d74de is an indication of the color
+- **uuid**:  Tilt name.  The "40" in a495bb`40`c5b14b44b5121370f02d74de is an indication of the color.
     - 10: Red
     - 20: Green
     - 30: Black
@@ -56,10 +56,10 @@ These keys may be interpreted as:
     - 70: Yellow
     - 80: Pink
 - **major**: Temp in degrees F.
-- **minor**: Specific gravity x1000
-- **tx_power**: Weeks since battery change (0-152 when converted to unsigned 8 bit integer)
-- **rssi**: Received Signal Strength Indication (RSSI) is a measurement of the power present in the received radio signal.  A lower negative number is stronger
-- **mac**: Media Access Control (MAC) address of the device
+- **minor**: Specific gravity x1000.
+- **tx_power**: Weeks since battery change (0-152 when converted to unsigned 8 bit integer).  You will occasionally see `-59` which is there to allow iOS to compute RSSI.  This value should be discarded.
+- **rssi**: Received Signal Strength Indication (RSSI) is a measurement of the power present in the received radio signal.  A lower negative number is stronger.
+- **mac**: Media Access Control (MAC) address of the device.
 
 ## Additional Information
 
