@@ -54,7 +54,7 @@ These keys may be interpreted as:
     - 50: Orange
     - 60: Blue
     - 70: Yellow
-    - 80: Ping
+    - 80: Pink
 - **major**: Temp in degrees F.
 - **minor**: Specific gravity x1000
 - **tx_power**: Weeks since battery change (0-152 when converted to unsigned 8 bit integer)
