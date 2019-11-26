@@ -1000,7 +1000,7 @@ class HCI_LE_Meta_Event(Packet):
 
     def decode(self,data):
         for x in self.payload:
-            data = X.decode(data)
+            data = x.decode(data)
         code = self.payload[0]
         if code.val == b"\x02":
             ev = HCI_LEM_Adv_Report()
