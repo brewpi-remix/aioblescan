@@ -7,22 +7,16 @@ version="0.2.5"
 setup(name='aioblescan',
     packages=['aioblescan', 'aioblescan.plugins'],
     version=version,
-    author='François Wautier',
-    author_email='francois@wautier.eu',
-    description='Scanning Bluetooth for advertised info with asyncio.',
-    url='http://github.com/frawau/aioblescan',
-    download_url='https://github.com/brewpi-remix/aioblescan',
+    author='Lee Bussy',
+    author_email='lee@bussy.org',
+    description='Scanning B:Eacons for Tilt supporting BrewPi.',
+    url='https://github.com/brewpi-remix/aioblescan',
+    download_url='https://github.com/brewpi-remix/aioblescan.git',
     keywords = ['bluetooth', 'advertising', 'hci', 'ble'],
     license='MIT',
     install_requires=[],
-    # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
-
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.7'
     ])
