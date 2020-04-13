@@ -168,8 +168,11 @@ class EnumByte:
         return val
 
     def decode(self,data):
-        self.val = unpack(">B",data[:1])[0]
-        return data[1:]
+        try:
+            self.val= unpack(">B",data[:1])[0]
+            return data[1:]
+        except:
+            return bytearray()
 
     @property
     def strval(self):
